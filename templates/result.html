@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>YouTube Videos</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+
+</head>
+<body>
+    <h1 style="text-align: center">YouTube Videos</h1>
+    <table>
+        <tr>
+            <th>Video URL</th>
+            <th>Thumbnails</th>
+            <th>Titles</th>
+            <th>Views</th>
+            <th>Upload Time</th>
+        </tr>
+        {% for review in reviews %}
+        <tr>
+            <td><a href="{{ review[0] }}">{{ review[0]}}</a></td>
+            <td><img src="{{ review[1] }}" alt="Thumbnail"></td>
+            <td>{{review[2]}}</td>
+            <td>{{review[3] }}</td>
+            <td>{{review[4]}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
