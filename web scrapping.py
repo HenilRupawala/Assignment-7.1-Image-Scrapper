@@ -38,7 +38,7 @@ def index():
                 reviews.append([i.get_attribute('href'), j.get_attribute('src'), k.text, l.text, m.text])
 
             data = pd.DataFrame(reviews, columns=['Video URL', 'Thumbnails', 'Titles', 'Views', 'Upload Time'])
-            data.to_csv('url scrapper.csv')
+            data.to_csv('url scrapper.csv', index = False)
 
             logging.info(f"log my final result {reviews}")
             return render_template('result.html', reviews=reviews)
