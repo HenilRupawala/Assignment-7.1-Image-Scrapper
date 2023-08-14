@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_file
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import pandas as pd
@@ -10,7 +10,14 @@ app = Flask(__name__)
 @app.route("/", methods = ['GET'])
 def homepage():
     return render_template('index.html')
-    
+
+@app.route("/url-csv-file", methods = ['GET'])
+def url_csv():
+	return send_file(
+        "url-scrapper.csv",
+        mimetype="text/csv",
+        as_attachment=True,
+) 
 
 @app.route("/review" , methods = ['POST' , 'GET'])
 def index():
@@ -38,7 +45,7 @@ def index():
                 reviews.append([i.get_attribute('href'), j.get_attribute('src'), k.text, l.text, m.text])
 
             data = pd.DataFrame(reviews, columns=['Video URL', 'Thumbnails', 'Titles', 'Views', 'Upload Time'])
-            data.to_csv('url scrapper.csv', index = False)
+            data.to_csv('url-scrapper.csv', index = False)
 
             logging.info(f"log my final result {reviews}")
             return render_template('result.html', reviews=reviews)
@@ -47,7 +54,7 @@ def index():
             return 'something is wrong'
 
 if __name__=="__main__":
-    app.run(host="0.0.0.0")
+    app.run(host="0.0.0.0",port="80")
 
 
     
